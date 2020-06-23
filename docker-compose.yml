@@ -1,7 +1,10 @@
 version: "2"
 services:
   client:
-    image: webapp-client
+    #image: webapp-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
     restart: always
     ports:
       - "3000:3000"
@@ -15,7 +18,10 @@ services:
     stdin_open: true
 
   api:
-    image: webapp-api
+    #image: webapp-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
     restart: always
     ports:
       - "9000:9000"
