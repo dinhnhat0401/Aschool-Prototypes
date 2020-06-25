@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cors = require("cors");
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
+const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -13,8 +14,14 @@ var apiRouter = require('./routes/testAPI');
 
 var app = express();
 
+// connect to database
+mongoose.connect(process.env.APP_MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true } );
+mongoose.connection.once('open', ()=>{
+  console.log('connected to database');
+});
+
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+//app.set('views', path.join(__dirname, 'views'));
 
 app.use(cors());
 
